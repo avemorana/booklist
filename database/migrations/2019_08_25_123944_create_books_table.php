@@ -19,7 +19,7 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('number_of_pages');
-            $table->string('img_path');
+            $table->string('img_path')->default('');
 
             $table->foreign('author_id')->references('id')->on('authors');
         });
