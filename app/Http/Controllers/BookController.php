@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class BookController extends Controller
 {
@@ -15,14 +17,26 @@ class BookController extends Controller
 
     public function create()
     {
-        dd(__METHOD__);
-//        return view('book.create');
-
+        $authors = Author::all();
+        return view('book.create', compact('authors'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        dd(__METHOD__);
+        $data = $request->input();
+
+        $book = Book::create([
+            'author_id' => $data['author'],
+            'title' => $data['title'],
+            'number_of_pages' => $data['number_of_pages'],
+            'description' => $data['description'],
+        ]);
+
+        $uploadFile = $request->file('img');
+        $fileName = $book->id . '.' . $uploadFile->getClientOriginalExtension();
+        $uploadFile->storeAs('public/images/', $fileName);
+        $book->img_path = 'storage/app/public/images/' . $fileName;
+        $book->save();
     }
 }
 
