@@ -8,4 +8,9 @@ class Book extends Model
 {
     public $timestamps = false;
     protected $fillable = ['author_id', 'title', 'number_of_pages', 'description', 'img_path'];
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 }

@@ -5,6 +5,7 @@
             <strong>Well done!</strong> {{$msg}}
         </div>
     @endif
+    <a href="{{route('create')}}">Create new book</a>
     <table class="table">
         <th>id</th>
         <th>title</th>
@@ -16,13 +17,11 @@
             <tr>
                 <td>{{$book->id}}</td>
                 <td>{{$book->title}}</td>
-                <td>{{$book->author_id}}</td>
-                {{--                @php(//TODO:) @endphp--}}
+                <td>{{$book->author->name}}</td>
                 <td>{{$book->number_of_pages}}</td>
                 <td>{{$book->description}}</td>
                 <td>
-                    <img href="{{$book->img_path}}">
-                    {{--                    @php(//TODO:)@endphp--}}
+                    <img src="{{\Illuminate\Support\Facades\Storage::url($book->img_path)}}" width="100px">
                 </td>
             </tr>
         @endforeach

@@ -77,7 +77,7 @@ class BookController extends Controller
         $fileName = $book->id . '.' . $ext;
 
         $uploadFile->storeAs('public/images/', $fileName);
-        $book->img_path = 'storage/app/public/images/' . $fileName;
+        $book->img_path = 'images/' . $fileName;
         $book->save();
 
         return redirect()->route('index', ['msg' => 'New book is successfully added']);
